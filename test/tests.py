@@ -1,6 +1,7 @@
 import re
 
 from math import isclose
+
 from hstest import CheckResult, StageTest, TestedProgram, WrongAnswer, dynamic_test
 
 
@@ -36,7 +37,7 @@ def check_num_values(values: list, user_values: list, message: str, rel_tol=1.0e
         raise WrongAnswer(message)
 
 
-class Stage1Test(StageTest):
+class Stage2Test(StageTest):
     @dynamic_test
     def test(self):
         pr = TestedProgram()
@@ -46,7 +47,7 @@ class Stage1Test(StageTest):
             raise WrongAnswer("Seems like your program does not show any output.")
 
         # check output format
-        check_outputs_number(3, user_output)
+        check_outputs_number(1, user_output)
 
         # check digits
         check_digits(user_output, "Make sure that you provide numbers with no more than 5 digits after the dot.")
@@ -54,26 +55,13 @@ class Stage1Test(StageTest):
         # check values
         user_values = [float(value) for value in user_output.split()]
 
-        intercept = [-92394937.42461553]
-        check_num_values(intercept, user_values[:1],
-                         "The first submitted value (intercept) is wrong.\n"
-                         "Make sure that you provide numbers in the correct order.",
-                         rel_tol=1.0e-2)
-
-        slope = [1322928.79254486]
-        check_num_values(slope, user_values[1:2],
-                         "The second submitted value (slope) is wrong.\n"
-                         "Make sure that you provide numbers in the correct order.",
-                         rel_tol=1.0e-2)
-
-        mape_score = [1.2099028536302507]
-        check_num_values(mape_score, user_values[2:],
-                         "The third submitted value (MAPE score) is wrong.\n"
-                         "Make sure that you provide numbers in the correct order.",
+        mape_score = [0.9418168196379272]
+        check_num_values(mape_score, user_values[:1],
+                         "The submitted value (MAPE score) is wrong.",
                          rel_tol=1.0e-2)
 
         return CheckResult.correct()
 
 
 if __name__ == '__main__':
-    Stage1Test().run_tests()
+    Stage2Test().run_tests()

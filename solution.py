@@ -25,9 +25,11 @@ X = pd.DataFrame(data['rating'])
 y = data['salary']
 # print(X.head())
 # print(y.head())
+X = X ** 3
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7, random_state=100)
 model = LinearRegression()
 model.fit(X_train, y_train)
 predictions_test = model.predict(X_test)
 m = mape(y_test, predictions_test)
-print(f'{round(model.intercept_, 5)} {round(model.coef_[0], 5)} {round(m, 5)}')
+# print(f'{round(model.intercept_, 5)} {round(model.coef_[0], 5)} {round(m, 5)}')
+print(round(m, 5))
